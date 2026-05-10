@@ -99,6 +99,7 @@ class SearchEngine:
 
         for url, stats in sorted(entry.items()):
             lines.append(f"- {url}")
+            lines.append(f"  page_id: {stats.get('page_id', 'N/A')}")
             lines.append(f"  frequency: {stats['frequency']}")
             lines.append(f"  positions: {stats['positions']}")
             lines.append(f"  page_word_count: {stats.get('page_word_count', 'N/A')}")

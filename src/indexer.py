@@ -44,6 +44,7 @@ from crawler import CrawledPage
 class PagePosting(TypedDict):
     """Statistics for one word in one page."""
 
+    page_id: int
     frequency: int
     positions: List[int]
     page_word_count: int
@@ -102,6 +103,7 @@ class Indexer:
 
                 if page.url not in self.index[word]:
                     self.index[word][page.url] = {
+                        "page_id": page.page_id,
                         "frequency": 0,
                         "positions": [],
                         "page_word_count": page_word_count,
