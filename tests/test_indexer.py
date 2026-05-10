@@ -17,6 +17,7 @@ def test_tokenize_removes_basic_punctuation():
 def test_build_index_records_frequency_and_positions():
     pages = [
         CrawledPage(
+            page_id=1,
             url="https://example.com/page1",
             text="Good friends are good.",
         )
@@ -33,6 +34,7 @@ def test_build_index_records_frequency_and_positions():
 def test_build_index_records_page_word_count_and_term_density():
     pages = [
         CrawledPage(
+            page_id=1,
             url="https://example.com/page1",
             text="Good friends are good.",
         )
@@ -49,9 +51,9 @@ def test_build_index_records_page_word_count_and_term_density():
 
 def test_build_index_records_document_frequency_and_tfidf():
     pages = [
-        CrawledPage(url="page1", text="good friends good"),
-        CrawledPage(url="page2", text="good life"),
-        CrawledPage(url="page3", text="wisdom life"),
+        CrawledPage(page_id=1, url="page1", text="good friends good"),
+        CrawledPage(page_id=2, url="page2", text="good life"),
+        CrawledPage(page_id=3, url="page3", text="wisdom life"),
     ]
 
     indexer = Indexer()
@@ -60,3 +62,20 @@ def test_build_index_records_document_frequency_and_tfidf():
     assert index["good"]["page1"]["document_frequency"] == 2
     assert index["good"]["page2"]["document_frequency"] == 2
     assert index["good"]["page1"]["tf_idf"] > 0
+
+
+def test_build_index_records_page_id():
+    pages = [
+        CrawledPage(
+            page_id=7,
+            url="https://example.com/page7",
+            text="good friends good",
+        )
+    ]
+
+    indexer = Indexer()
+    index = indexer.build(pages)
+
+    posting = index["good"]["https://example.com/page7"]
+
+    assert posting["page_id"] == 7

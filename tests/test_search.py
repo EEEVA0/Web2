@@ -9,6 +9,7 @@ def sample_index():
     return {
         "good": {
             "page1": {
+                "page_id": 1,
                 "frequency": 2,
                 "positions": [0, 3],
                 "page_word_count": 4,
@@ -17,6 +18,7 @@ def sample_index():
                 "tf_idf": 0.7,
             },
             "page2": {
+                "page_id": 2,
                 "frequency": 1,
                 "positions": [5],
                 "page_word_count": 6,
@@ -27,6 +29,7 @@ def sample_index():
         },
         "friends": {
             "page1": {
+                "page_id": 1,
                 "frequency": 1,
                 "positions": [1],
                 "page_word_count": 4,
@@ -37,6 +40,7 @@ def sample_index():
         },
         "indifference": {
             "page3": {
+                "page_id": 3,
                 "frequency": 1,
                 "positions": [2],
                 "page_word_count": 5,
@@ -82,6 +86,7 @@ def test_format_word_index_includes_new_statistics():
     engine = SearchEngine(sample_index())
     output = engine.format_word_index("good")
 
+    assert "page_id" in output
     assert "term_density" in output
     assert "tf_idf" in output
     assert "page_word_count" in output
