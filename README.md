@@ -531,3 +531,17 @@ The test suite covers:
 - non-existent word handling.
 
 The crawler tests use sample HTML rather than live network requests. This makes the tests faster, more stable, and independent of temporary website or network issues.
+
+---
+
+## 11. GenAI Usage and Critical Reflection
+
+Generative AI tools were used as supporting tools during the development of this project. They were mainly used to help understand possible implementation approaches, review the code structure, improve documentation, and suggest test cases. All AI-generated suggestions were manually checked, modified, and tested before being included in the final project.
+
+GenAI was helpful when designing the inverted index. It suggested storing not only `frequency` and `positions`, but also ranking-related statistics such as `term_density` and `tf_idf`. After reviewing the coursework requirements, I adopted this idea and implemented a richer index structure containing `page_id`, `frequency`, `positions`, `page_word_count`, `document_frequency`, `term_density`, and `tf_idf`.
+
+However, GenAI suggestions were not always complete. For example, an early crawler design only followed the `next` pagination link, which missed tag pages and author pages. I corrected this by implementing internal link discovery using a breadth-first crawl frontier. I also added URL normalisation so that equivalent URLs such as `/tag/friends/` and `/tag/friends/page/1/` are treated as the same page.
+
+AI-generated testing suggestions also needed improvement. I added tests for crawler text extraction, author page extraction, internal link discovery, URL normalisation, tokenisation, index statistics, TF-IDF calculation, multi-word search, empty queries, and non-existent words.
+
+Overall, GenAI helped me work more efficiently, but it also required careful checking. The process helped me better understand the full search engine pipeline, including crawling, indexing, storage, retrieval, ranking, and testing.
